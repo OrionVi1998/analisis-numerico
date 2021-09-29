@@ -21,7 +21,7 @@ function EjerciciosA(props) {
   ]
   return (
     <div>
-      <Menu pointing secondary>
+      <Menu pointing secondary style={{height:"6%"}}>
         {
           ejercicios.map(ejercicio =>
             <Menu.Item
@@ -34,7 +34,7 @@ function EjerciciosA(props) {
         }
       </Menu>
 
-      <Grid style={{height: '89vh', width: '100%'}} columns={2} textalign="center" divided>
+      <Grid style={{height: '89%', width: '100%'}} columns={1} textalign="center" divided>
         <Grid.Row>
           <Grid.Column>
             <TablaEjercicios ej={ej}/>

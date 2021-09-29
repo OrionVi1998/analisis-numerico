@@ -9,7 +9,7 @@ function Navbar(props) {
   ]
 
   return (
-    <Menu inverted style={{height: '5vh'}}>
+    <Menu inverted style={{height: '5%'}}>
       {
         items.map(i =>
           <Menu.Item
