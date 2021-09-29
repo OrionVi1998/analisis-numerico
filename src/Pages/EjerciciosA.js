@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Grid, Menu} from "semantic-ui-react";
+import TablaEjercicios from "../Components/TablaEjercicios";
 
 function EjerciciosA(props) {
 
@@ -36,10 +37,7 @@ function EjerciciosA(props) {
       <Grid style={{height: '89vh', width: '100%'}} columns={2} textalign="center" divided>
         <Grid.Row>
           <Grid.Column>
-            Yay
-          </Grid.Column>
-          <Grid.Column>
-            Yay
+            <TablaEjercicios ej={ej}/>
           </Grid.Column>
         </Grid.Row>
       </Grid>
