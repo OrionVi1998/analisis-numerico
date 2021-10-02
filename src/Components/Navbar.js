@@ -5,7 +5,8 @@ function Navbar(props) {
 
   const items = [
     {name: "Home", link: "/"},
-    {name: "Ejercicios: 13, 14, 15", link: "/ejercicios_a"}
+    {name: "Ejercicios: 13, 14, 15", link: "/ejercicios_a"},
+    {name:"Biseccion", link:"/biseccion"}
   ]
 
   return (
