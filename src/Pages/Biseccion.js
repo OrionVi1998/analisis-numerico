@@ -27,7 +27,7 @@ const Biseccion = () => {
     f = funcion.replace("x", valor);
     f = evaluate(f);
     let newVals = valsX;
-    if (newVals.find((v) => v.x === valor) === undefined) {
+    if (newVals.find((v) => v.x === valor) === undefined && funcion !== "") {
       newVals.push({x:valor, fx:f})
       setValsX(newVals)
       setTx("")
@@ -93,37 +93,36 @@ const Biseccion = () => {
                   <Table.HeaderCell> X </Table.HeaderCell>
                   <Table.HeaderCell> f(x) </Table.HeaderCell>
                 </Table.Row>
-
-
               </Table.Header>
 
               {/*CELLS already Found*/}
-              {valsX.map(vx =>
+              <Table.Body>
+                {valsX.map(vx =>
+                  <Table.Row>
+                    <Table.Cell>{vx.x}</Table.Cell>
+                    <Table.Cell>{vx.fx}</Table.Cell>
+                  </Table.Row>
+                )}
                 <Table.Row>
-                  <Table.Cell>{vx.x}</Table.Cell>
-                  <Table.Cell>{vx.fx}</Table.Cell>
+                  {/*Tabulator Button*/}
+                  <Table.Cell>
+                    <Input
+                      placeholder={"Valor de X"}
+                      value={tx}
+                      onChange={(e, s) => setTx(s.value)}
+                    />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Button
+                      icon={"plus"}
+                      color={"green"}
+                      onClick={() => {
+                        tabular(tx)
+                      }}
+                    />
+                  </Table.Cell>
                 </Table.Row>
-              )}
-
-              <Table.Row>
-                {/*Tabulator Button*/}
-                <Table.Cell>
-                  <Input
-                    placeholder={"Valor de X"}
-                    value={tx}
-                    onChange={(e, s) => setTx(s.value)}
-                  />
-                </Table.Cell>
-                <Table.Cell>
-                  <Button
-                    icon={"plus"}
-                    color={"green"}
-                    onClick={() => {
-                      tabular(tx)
-                    }}
-                  />
-                </Table.Cell>
-              </Table.Row>
+              </Table.Body>
             </Table>
           </Segment>
         </Grid.Column>
@@ -135,19 +134,23 @@ const Biseccion = () => {
                   <Table.Row>
                     <Table.HeaderCell> I </Table.HeaderCell>
                     <Table.HeaderCell> a </Table.HeaderCell>
+                    <Table.HeaderCell> f(a) </Table.HeaderCell>
                     <Table.HeaderCell> b </Table.HeaderCell>
+                    <Table.HeaderCell> f(b) </Table.HeaderCell>
                     <Table.HeaderCell> [a, b] </Table.HeaderCell>
                   </Table.Row>
+                </Table.Header>
 
-                  <Table.Row colSpan={"4"}>
-                    <Table.Cell colSpan={"4"}>
+                <Table.Body>
+                  <Table.Row colSpan={"6"}>
+                    <Table.Cell colSpan={"6"}>
                       <Button
                         icon={"plus"}
                         color={"green"}
                       />
                     </Table.Cell>
                   </Table.Row>
-                </Table.Header>
+                </Table.Body>
               </Table>
             </Segment>
           </Grid.Row>
