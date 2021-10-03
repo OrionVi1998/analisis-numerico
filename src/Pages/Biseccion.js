@@ -1,13 +1,31 @@
-import React, {useState} from 'react';
-import {Grid, Form, Segment, Divider, Label, Table} from "semantic-ui-react";
+import React, {useState, useEffect} from 'react';
+import {Grid, Form, Segment, Divider, Label, Table, Button, Input} from "semantic-ui-react";
 
 const Biseccion = () => {
 
-  const [a, setA] = useState("");
-  const [b, setB] = useState("");
-  const [e, setE] = useState("");
-  const [iter, setIter] = useState("NA");
+  const [a, setA] = useState(0);
+  const [b, setB] = useState(10);
+  const [e, setE] = useState(0.05);
+  const [k, setK] = useState("NA");
+  const [valsX, setValsX] = useState([]);
+  const [tx, setTx] = useState("");
   const [funcion, setFuncion] = useState("");
+
+  useEffect(() => {
+    try {
+      let res;
+      res = - Math.log2((e / (b - a)))
+      setK(Math.ceil(res))
+    }
+    catch (error) {
+
+    }
+  }, [e]);
+
+
+  const tabular = (valor) => {
+
+  }
 
   return (
     <Grid divided>
@@ -40,7 +58,10 @@ const Biseccion = () => {
               <Divider/>
               <label>
                 Error:
-                (b-a)  * 2^-k &lt;= error
+                <br />
+                (b - a)  * 2^(-k) &lt;= error
+                <br />
+                k &gt;= -log2(e / (b - a))
               </label>
 
               <Form.Group>
@@ -53,13 +74,13 @@ const Biseccion = () => {
                 <Label style={{display: "flex", alignItems:"center", justifyContent:"center"}}>
                   Iteraciones Minimas
                   <Label.Detail>
-                    {iter}
+                    {k}
                   </Label.Detail>
                 </Label>
               </Form.Group>
             </Form>
             <Divider/>
-            <Table celled>
+            <Table celled textAlign={"center"}>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell> X </Table.HeaderCell>
@@ -70,8 +91,20 @@ const Biseccion = () => {
 
                 <Table.Row>
                   {/*Tabulator Button*/}
-                  <Table.Cell></Table.Cell>
-                  <Table.Cell></Table.Cell>
+                  <Table.Cell>
+                    <Input
+                    placeholder={"Valor de X"}
+                    value={tx}
+                    onChange={(e,s) => setTx(s.value)}
+                    />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Button
+                      icon={"plus"}
+                      color={"green"}
+                      onClick={() => {}}
+                    />
+                  </Table.Cell>
                 </Table.Row>
               </Table.Header>
             </Table>
