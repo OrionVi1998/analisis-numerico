@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Grid, Form, Segment, Divider, Label, Table, Button, Input} from "semantic-ui-react";
+import {evaluate} from "mathjs";
 
 const Biseccion = () => {
 
@@ -8,24 +9,30 @@ const Biseccion = () => {
   const [e, setE] = useState(0.05);
   const [k, setK] = useState("NA");
   const [valsX, setValsX] = useState([]);
+  const [iter, setIter] = useState("");
   const [tx, setTx] = useState("");
   const [funcion, setFuncion] = useState("");
 
   useEffect(() => {
     try {
       let res;
-      res = - Math.log2((e / (b - a)))
+      res = -Math.log2((e / (b - a)))
       setK(Math.ceil(res))
-    }
-    catch (error) {
-
-    }
-  }, [e]);
+    } catch (error) {}
+  }, [a, b, e]);
 
 
   const tabular = (valor) => {
-
-  }
+    let f;
+    f = funcion.replace("x", valor);
+    f = evaluate(f);
+    let newVals = valsX;
+    if (newVals.find((v) => v.x === valor) === undefined) {
+      newVals.push({x:valor, fx:f})
+      setValsX(newVals)
+      setTx("")
+    }
+  };
 
   return (
     <Grid divided>
@@ -58,9 +65,9 @@ const Biseccion = () => {
               <Divider/>
               <label>
                 Error:
-                <br />
-                (b - a)  * 2^(-k) &lt;= error
-                <br />
+                <br/>
+                (b - a) * 2^(-k) &lt;= error
+                <br/>
                 k &gt;= -log2(e / (b - a))
               </label>
 
@@ -71,7 +78,7 @@ const Biseccion = () => {
                   value={e}
                   onChange={(e, s) => setE(s.value)}
                 />
-                <Label style={{display: "flex", alignItems:"center", justifyContent:"center"}}>
+                <Label style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                   Iteraciones Minimas
                   <Label.Detail>
                     {k}
@@ -87,31 +94,63 @@ const Biseccion = () => {
                   <Table.HeaderCell> f(x) </Table.HeaderCell>
                 </Table.Row>
 
-                {/*CELLS already Found*/}
 
+              </Table.Header>
+
+              {/*CELLS already Found*/}
+              {valsX.map(vx =>
                 <Table.Row>
-                  {/*Tabulator Button*/}
-                  <Table.Cell>
-                    <Input
+                  <Table.Cell>{vx.x}</Table.Cell>
+                  <Table.Cell>{vx.fx}</Table.Cell>
+                </Table.Row>
+              )}
+
+              <Table.Row>
+                {/*Tabulator Button*/}
+                <Table.Cell>
+                  <Input
                     placeholder={"Valor de X"}
                     value={tx}
-                    onChange={(e,s) => setTx(s.value)}
-                    />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Button
-                      icon={"plus"}
-                      color={"green"}
-                      onClick={() => {}}
-                    />
-                  </Table.Cell>
-                </Table.Row>
-              </Table.Header>
+                    onChange={(e, s) => setTx(s.value)}
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Button
+                    icon={"plus"}
+                    color={"green"}
+                    onClick={() => {
+                      tabular(tx)
+                    }}
+                  />
+                </Table.Cell>
+              </Table.Row>
             </Table>
           </Segment>
         </Grid.Column>
         <Grid.Column>
+          <Grid.Row>
+            <Segment style={{height: "50vh", width: "50vw"}}>
+              <Table celled textAlign={"center"}>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell> I </Table.HeaderCell>
+                    <Table.HeaderCell> a </Table.HeaderCell>
+                    <Table.HeaderCell> b </Table.HeaderCell>
+                    <Table.HeaderCell> [a, b] </Table.HeaderCell>
+                  </Table.Row>
 
+                  <Table.Row colSpan={"4"}>
+                    <Table.Cell colSpan={"4"}>
+                      <Button
+                        icon={"plus"}
+                        color={"green"}
+                      />
+                    </Table.Cell>
+                  </Table.Row>
+                </Table.Header>
+              </Table>
+            </Segment>
+          </Grid.Row>
         </Grid.Column>
       </Grid.Row>
     </Grid>
