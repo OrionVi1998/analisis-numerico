@@ -26,6 +26,7 @@ const Biseccion = () => {
 
 
   useEffect(() => {
+    setValoresTabulador([])
     try {
       setIteraciones([])
       let newIteraciones;
@@ -77,26 +78,31 @@ const Biseccion = () => {
       }
       setIteraciones(newIteraciones)
     } catch (error) {
-      alert(error)
     }
   }, [funcion, rangoA, rangoB, numeroIteraciones]);
 
   const tabular = (valor) => {
-    let f;
-    f = funcion.replaceAll("x", valor);
-    f = evaluate(f);
-    let newVals = valoresTabulador;
-    if (newVals.find((v) => v.x === valor) === undefined && funcion !== "") {
-      newVals.push({x: valor, fx: f})
-      setValoresTabulador(newVals)
-      setInputTabulador("")
+    try {
+      let f;
+      f = funcion.replaceAll("x", valor);
+      f = evaluate(f);
+      let newVals = valoresTabulador;
+      if (newVals.find((v) => v.x === valor) === undefined && funcion !== "") {
+        newVals.push({x: valor, fx: f})
+        setValoresTabulador(newVals)
+        setInputTabulador("")
+      }
     }
+    catch (error) {
+      alert(error)
+    }
+
   };
 
   return (
     <Grid rows={"2"} columns={"2"} divided>
       <Grid.Row>
-        <Grid.Column style={{height: "50vh", width: "25vw"}}>
+        <Grid.Column style={{width: "100vw"}}>
           <Segment>
             <Form>
               <label>Funcion</label>
@@ -138,7 +144,7 @@ const Biseccion = () => {
                   onChange={(e, s) => scotaErrortE(s.value)}
                 />
                 <Label style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                  Iteraciones Minimas
+                  Iteraciones a Realizar
                   <Label.Detail>
                     {numeroIteraciones}
                   </Label.Detail>
@@ -186,7 +192,7 @@ const Biseccion = () => {
           </Segment>
         </Grid.Column>
         <Grid.Column>
-
+        {/*  TODO: Plot of function | Rules that need to be verified */}
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
@@ -194,14 +200,13 @@ const Biseccion = () => {
           <Table celled textAlign={"center"}>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell> I </Table.HeaderCell>
+                <Table.HeaderCell> i </Table.HeaderCell>
                 <Table.HeaderCell> a </Table.HeaderCell>
                 <Table.HeaderCell> f(a) </Table.HeaderCell>
                 <Table.HeaderCell> f(a)&lt;0 </Table.HeaderCell>
                 <Table.HeaderCell> b </Table.HeaderCell>
                 <Table.HeaderCell> f(b) </Table.HeaderCell>
                 <Table.HeaderCell> f(b)&lt;0 </Table.HeaderCell>
-                <Table.HeaderCell> [a,b] </Table.HeaderCell>
                 <Table.HeaderCell> m </Table.HeaderCell>
                 <Table.HeaderCell> f(m) </Table.HeaderCell>
               </Table.Row>
@@ -211,14 +216,13 @@ const Biseccion = () => {
               {iteraciones.map(i =>
                 <Table.Row>
                   <Table.Cell>{i.i}</Table.Cell>
-                  <Table.Cell>{i.aa}</Table.Cell>
+                  <Table.Cell active>{i.aa}</Table.Cell>
                   <Table.Cell>{i.fa}</Table.Cell>
                   <Table.Cell>{i.falz}</Table.Cell>
-                  <Table.Cell>{i.bb}</Table.Cell>
+                  <Table.Cell active>{i.bb}</Table.Cell>
                   <Table.Cell>{i.fb}</Table.Cell>
                   <Table.Cell>{i.fblz}</Table.Cell>
-                  <Table.Cell>{i.rango}</Table.Cell>
-                  <Table.Cell>{i.m}</Table.Cell>
+                  <Table.Cell active>{i.m}</Table.Cell>
                   <Table.Cell>{i.fm}</Table.Cell>
                 </Table.Row>
               )}
