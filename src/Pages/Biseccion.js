@@ -4,41 +4,43 @@ import {evaluate, pi} from "mathjs";
 
 const Biseccion = () => {
 
-  const [a, setA] = useState(0);
-  const [b, setB] = useState(pi / 2);
-  const [e, setE] = useState(0.05);
-  const [k, setK] = useState(0);
-  const [valsX, setValsX] = useState([]);
-  const [iter, setIter] = useState([]);
-  const [tx, setTx] = useState("");
+  const [rangoA, setRangoA] = useState(0);
+  const [rangoB, setRangoB] = useState(pi / 2);
+  const [cotaError, scotaErrortE] = useState(0.05);
+  const [numeroIteraciones, setNumeroIteraciones] = useState(0);
+  const [valoresTabulador, setValoresTabulador] = useState([]);
+  const [iteraciones, setIteraciones] = useState([]);
+  const [inputTabulador, setInputTabulador] = useState("");
   const [funcion, setFuncion] = useState("cos(x)-x");
 
   useEffect(() => {
     try {
       let res;
-      res = -Math.log2((e / (b - a)))
-      setK(Math.ceil(res))
+      res = -Math.log2((cotaError / (rangoB - rangoA)))
+      if (Math.ceil(res)!==-Infinity) {
+        setNumeroIteraciones(Math.ceil(res))
+      }
     } catch (error) {
     }
-  }, [a, b, e]);
+  }, [rangoA, rangoB, cotaError]);
 
 
   useEffect(() => {
     try {
-      setIter([])
-      let res;
+      setIteraciones([])
+      let newIteraciones;
       let count = 0;
       let fa;
       let fb;
       let middlePoint;
       let fm;
-      let pointA = a;
-      let pointB = b;
+      let pointA = rangoA;
+      let pointB = rangoB;
       let iterToPush;
 
-      res = []
+      newIteraciones = []
 
-      while (count !== k && k <= 50) {
+      while (count !== numeroIteraciones && numeroIteraciones <= 50) {
         count += 1
         middlePoint = (pointA + pointB) / 2;
 
@@ -70,24 +72,24 @@ const Biseccion = () => {
           pointB = middlePoint;
         }
 
-        res.push(iterToPush)
+        newIteraciones.push(iterToPush)
 
       }
-      setIter(res)
+      setIteraciones(newIteraciones)
     } catch (error) {
       alert(error)
     }
-  }, [funcion, a, b, k]);
+  }, [funcion, rangoA, rangoB, numeroIteraciones]);
 
   const tabular = (valor) => {
     let f;
     f = funcion.replaceAll("x", valor);
     f = evaluate(f);
-    let newVals = valsX;
+    let newVals = valoresTabulador;
     if (newVals.find((v) => v.x === valor) === undefined && funcion !== "") {
       newVals.push({x: valor, fx: f})
-      setValsX(newVals)
-      setTx("")
+      setValoresTabulador(newVals)
+      setInputTabulador("")
     }
   };
 
@@ -109,14 +111,14 @@ const Biseccion = () => {
                 <Form.Input
                   placeholder="a"
                   name={"a"}
-                  value={a}
-                  onChange={(e, s) => setA(s.value)}
+                  value={rangoA}
+                  onChange={(e, s) => setRangoA(s.value)}
                 />
                 <Form.Input
                   placeholder="b"
                   name="b"
-                  value={b}
-                  onChange={(e, s) => setB(s.value)}
+                  value={rangoB}
+                  onChange={(e, s) => setRangoB(s.value)}
                 />
               </Form.Group>
               <Divider/>
@@ -132,13 +134,13 @@ const Biseccion = () => {
                 <Form.Input
                   placeholder={"Error"}
                   name={"e"}
-                  value={e}
-                  onChange={(e, s) => setE(s.value)}
+                  value={cotaError}
+                  onChange={(e, s) => scotaErrortE(s.value)}
                 />
                 <Label style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                   Iteraciones Minimas
                   <Label.Detail>
-                    {k}
+                    {numeroIteraciones}
                   </Label.Detail>
                 </Label>
               </Form.Group>
@@ -154,7 +156,7 @@ const Biseccion = () => {
 
               {/*CELLS already Found*/}
               <Table.Body>
-                {valsX.map(vx =>
+                {valoresTabulador.map(vx =>
                   <Table.Row>
                     <Table.Cell>{vx.x}</Table.Cell>
                     <Table.Cell>{vx.fx}</Table.Cell>
@@ -165,8 +167,8 @@ const Biseccion = () => {
                   <Table.Cell>
                     <Input
                       placeholder={"Valor de X"}
-                      value={tx}
-                      onChange={(e, s) => setTx(s.value)}
+                      value={inputTabulador}
+                      onChange={(e, s) => setInputTabulador(s.value)}
                     />
                   </Table.Cell>
                   <Table.Cell>
@@ -174,7 +176,7 @@ const Biseccion = () => {
                       icon={"plus"}
                       color={"green"}
                       onClick={() => {
-                        tabular(tx)
+                        tabular(inputTabulador)
                       }}
                     />
                   </Table.Cell>
@@ -206,7 +208,7 @@ const Biseccion = () => {
             </Table.Header>
 
             <Table.Body>
-              {iter.map(i =>
+              {iteraciones.map(i =>
                 <Table.Row>
                   <Table.Cell>{i.i}</Table.Cell>
                   <Table.Cell>{i.aa}</Table.Cell>
@@ -225,7 +227,7 @@ const Biseccion = () => {
                   <Button
                     icon={"plus"}
                     color={"green"}
-                    onClick={() => setK(k+1)}
+                    onClick={() => setNumeroIteraciones(numeroIteraciones+1)}
                   />
                 </Table.Cell>
               </Table.Row>
