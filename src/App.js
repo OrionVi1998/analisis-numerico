@@ -6,6 +6,7 @@ import Navbar from "./Components/Navbar";
 import EjerciciosA from "./Pages/EjerciciosA";
 import Biseccion from "./Pages/Biseccion";
 import PuntoFijo from "./Pages/PuntoFijo";
+import NewtonRaphson from "./Pages/NewtonRaphson";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route exact path={"/ejercicios_a"} component={EjerciciosA}/>
           <Route exact path={"/biseccion"} component={Biseccion}/>
           <Route exact path={"/punto_fijo"} component={PuntoFijo}/>
+          <Route exact path={"/newton_raphson"} component={NewtonRaphson}/>
         </div>
       </Switch>
     </BrowserRouter>

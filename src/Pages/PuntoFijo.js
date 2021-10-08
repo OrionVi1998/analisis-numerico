@@ -52,7 +52,6 @@ const PuntoFijo = () => {
 
   return (
     <Grid rows={"2"} columns={"2"} divided>
-
       <Grid.Row>
         <Grid.Column>
           <Segment>
