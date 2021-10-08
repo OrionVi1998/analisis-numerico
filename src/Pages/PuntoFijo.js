@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Form, Grid, Table, Segment, Dropdown, Button} from "semantic-ui-react";
+import {Form, Grid, Table, Segment, Dropdown, Button, Label} from "semantic-ui-react";
 import LineChartPF from "../Components/LineChartPF";
 import {evaluate} from "mathjs";
 import * as d3 from "d3";
@@ -14,18 +14,17 @@ const PuntoFijo = () => {
   const [puntoB, setPuntoB] = useState(0);
   const [answer, setAnswer] = useState(0);
   const [xZero, setXZero] = useState(puntoB);
-  const [iteraciones, setIteraciones] = useState([{
-    i: 0,
-    x: xZero,
-    gx: evaluate(funcionG.replaceAll("x", `(${xZero})`))
-  }]);
+  const [iteraciones, setIteraciones] = useState([]);
 
   useEffect(() => {
     try {
       let dataToSet = [];
-      // setFuncionDeriv(derivative(funcionX, "x").toString())
+      setIteraciones([{
+        i: 0,
+        x: xZero,
+        gx: evaluate(funcionG.replaceAll("x", `(${xZero})`))
+      }])
 
-      console.log(funcionX.replaceAll("x", -0.5))
 
       let dominio = d3.range(puntoA, puntoB, 0.05)
       let valsFX = dominio.map(x => (
@@ -46,7 +45,7 @@ const PuntoFijo = () => {
 
     } catch (error) {
     }
-  }, [funcionX, funcionG, puntoA, puntoB, answer]);
+  }, [funcionX, funcionG, puntoA, puntoB, answer, xZero]);
 
 
   return (
@@ -55,23 +54,30 @@ const PuntoFijo = () => {
         <Grid.Column>
           <Segment>
             <Form>
-              <label>F(x)</label>
+              <Label
+                color="red"
+              >
+                F(x)
+              </Label>
               <Form.Input
                 placeholder={"F(x) (Rojo)"}
                 value={funcionX}
                 onChange={(e, s) => setFuncionX(s.value)}
               />
-              <br/>
-              <br/>
-              <label>G(x)</label>
+
+              <Label
+              color={"blue"}
+              >
+                G(x)
+              </Label>
               <Form.Input
                 placeholder={"G(x) (Azul)"}
                 value={funcionG}
                 onChange={(e, s) => setFuncionG(s.value)}
               />
 
-              <label>Rango A - B</label>
               <Form.Group>
+                <Label>Rango A - B :</Label>
                 <Form.Input
                   placeholder={"a"}
                   value={puntoA}
@@ -84,9 +90,9 @@ const PuntoFijo = () => {
                 />
               </Form.Group>
 
-              <label>
+              <Label>
                 X0
-              </label>
+              </Label>
               <br/>
               <Dropdown
                 placeholder={"x0"}
@@ -129,7 +135,6 @@ const PuntoFijo = () => {
                   </Table.HeaderCell>
                 </Table.Row>
 
-
               </Table.Header>
               <Table.Body>
 
@@ -146,14 +151,16 @@ const PuntoFijo = () => {
                       icon={"plus"}
                       color={"green"}
                       onClick={() => {
-                        let newIters = iteraciones;
-                        newIters.push({
-                          i: newIters[newIters.length - 1]+1,
-                          x: newIters[newIters.length - 1].gx,
-                          gx: evaluate(funcionG.replaceAll("x", `(${newIters[newIters.length - 1].gx})`))
-                        })
-                        setAnswer(evaluate(funcionG.replaceAll("x", `(${newIters[newIters.length - 1].gx})`)))
-                        setIteraciones(newIters)
+                        try {
+                          let newIters = iteraciones;
+                          newIters.push({
+                            i: newIters[newIters.length - 1]+1,
+                            x: newIters[newIters.length - 1].gx,
+                            gx: evaluate(funcionG.replaceAll("x", `(${newIters[newIters.length - 1].gx})`))
+                          })
+                          setAnswer(evaluate(funcionG.replaceAll("x", `(${newIters[newIters.length - 1].gx})`)))
+                          setIteraciones(newIters)
+                        } catch (error) {}
                       }}
                     />
                   </Table.Cell>
