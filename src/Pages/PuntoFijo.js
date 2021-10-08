@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Form, Grid, Table, Segment, Dropdown, Button} from "semantic-ui-react";
-import LineChartNoWrapper from "../Components/LineChartNoWrapper";
+import LineChartPF from "../Components/LineChartPF";
 import {evaluate} from "mathjs";
 import * as d3 from "d3";
 
@@ -42,7 +42,6 @@ const PuntoFijo = () => {
       ))
 
       dataToSet = dataToSet.concat(valsFX).concat(valsGX).concat(valoresXY).concat(answerXY)
-
       setData(dataToSet)
 
     } catch (error) {
@@ -108,7 +107,7 @@ const PuntoFijo = () => {
         </Grid.Column>
         <Grid.Column>
           <Segment>
-            <LineChartNoWrapper data={data} rango={{xa: puntoA, xb: puntoB}}/>
+            <LineChartPF data={data} rango={{xa: puntoA, xb: puntoB}}/>
           </Segment>
         </Grid.Column>
 

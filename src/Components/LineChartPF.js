@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import * as d3 from "d3";
 import {scaleLinear} from "d3";
 
-const LineChartNoWrapper = ({data, xa, xb}) => {
+const LineChartPF = ({data, xa, xb}) => {
 
   const d3Chart = useRef()
 
@@ -85,4 +85,4 @@ const LineChartNoWrapper = ({data, xa, xb}) => {
   );
 };
 
-export default LineChartNoWrapper;
+export default LineChartPF;
