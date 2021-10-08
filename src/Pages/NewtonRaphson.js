@@ -60,7 +60,7 @@ const NewtonRaphson = () => {
 
 
     } catch (error) {
-
+      console.log(error)
     }
 
   }, [funcionF, puntoA, puntoB, xZero])
@@ -170,11 +170,8 @@ const NewtonRaphson = () => {
                       color={"green"}
                       onClick={() => {
                         try {
-                          console.log("x-((a)/(b))"
-                          .replaceAll("a", funcionF)
-                          .replaceAll("b", funcionDF))
+
                           const lastVal = iteraciones[iteraciones.length-1];
-                          console.log(lastVal)
                           const newIters = update(iteraciones, {$push:[
                               {
                                 i: lastVal.i+1,

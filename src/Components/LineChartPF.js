@@ -69,7 +69,9 @@ const LineChartPF = ({data}) => {
     return () => {
       try {
         d3Chart.current.removeChild(d3Chart.current.children[0])
-      } catch (error) {}
+      } catch (error) {
+        console.log(error)
+      }
     }
 
   },[data]);

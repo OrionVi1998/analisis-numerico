@@ -3,6 +3,7 @@ import {Form, Grid, Table, Segment, Dropdown, Button, Label} from "semantic-ui-r
 import LineChartPF from "../Components/LineChartPF";
 import {evaluate} from "mathjs";
 import * as d3 from "d3";
+import update from "immutability-helper";
 
 
 const PuntoFijo = () => {
@@ -25,7 +26,6 @@ const PuntoFijo = () => {
         gx: evaluate(funcionG.replaceAll("x", `(${xZero})`))
       }])
 
-
       let dominio = d3.range(puntoA, puntoB, 0.05)
       let valsFX = dominio.map(x => (
         {funcion: "fx", x: Number(x), y: evaluate(funcionX.replaceAll("x", `(${x})`))}
@@ -44,6 +44,7 @@ const PuntoFijo = () => {
       setData(dataToSet)
 
     } catch (error) {
+      console.log(error)
     }
   }, [funcionX, funcionG, puntoA, puntoB, answer, xZero]);
 
@@ -152,15 +153,16 @@ const PuntoFijo = () => {
                       color={"green"}
                       onClick={() => {
                         try {
-                          let newIters = iteraciones;
-                          newIters.push({
-                            i: newIters[newIters.length - 1]+1,
-                            x: newIters[newIters.length - 1].gx,
-                            gx: evaluate(funcionG.replaceAll("x", `(${newIters[newIters.length - 1].gx})`))
-                          })
+                          let newIters = update(iteraciones, {$push:[{
+                              i: iteraciones[iteraciones.length - 1]+1,
+                              x: iteraciones[iteraciones.length - 1].gx,
+                              gx: evaluate(funcionG.replaceAll("x", `(${iteraciones[iteraciones.length - 1].gx})`))
+                            }]});
                           setAnswer(evaluate(funcionG.replaceAll("x", `(${newIters[newIters.length - 1].gx})`)))
                           setIteraciones(newIters)
-                        } catch (error) {}
+                        } catch (error) {
+                          console.log(error)
+                        }
                       }}
                     />
                   </Table.Cell>
