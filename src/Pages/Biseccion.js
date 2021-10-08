@@ -21,6 +21,7 @@ const Biseccion = () => {
         setNumeroIteraciones(Math.ceil(res))
       }
     } catch (error) {
+      console.log(error)
     }
   }, [rangoA, rangoB, cotaError]);
 
@@ -78,6 +79,7 @@ const Biseccion = () => {
       }
       setIteraciones(newIteraciones)
     } catch (error) {
+      console.log(error)
     }
   }, [funcion, rangoA, rangoB, numeroIteraciones]);
 
@@ -94,7 +96,7 @@ const Biseccion = () => {
       }
     }
     catch (error) {
-      alert(error)
+      console.log(error)
     }
 
   };
