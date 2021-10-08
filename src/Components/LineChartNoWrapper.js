@@ -8,10 +8,6 @@ const LineChartNoWrapper = ({data, xa, xb}) => {
 
   useEffect(() => {
 
-    console.log(data.filter(d => d.x === -0.5))
-    console.log(d3.extent(data, d => d.x))
-    console.log(d3.extent(data, d => d.y))
-
     const margin = {top:50, bottom:30, right:30, left:30}
     const width = 500
     const height = 500
@@ -42,6 +38,10 @@ const LineChartNoWrapper = ({data, xa, xb}) => {
     .x(d => xScale(d.x))
     .y(d => yScale(d.y))
 
+    let answer = (val) => d3.line()
+    .x(d => val)
+    .y(d => d.y)
+
     svg.append("path")
     .datum(data.filter(d => d.funcion === "xy"))
     .attr("fill", "none")
@@ -63,6 +63,18 @@ const LineChartNoWrapper = ({data, xa, xb}) => {
     .attr("stroke-width",1)
     .attr("d",line)
 
+    svg.append("path")
+    .datum(data.filter(d => d.funcion === "answerXY"))
+    .attr("fill", "none")
+    .attr("stroke", "blue")
+    .attr("stroke-width",1)
+    .attr("d",line)
+
+    return () => {
+      try {
+        d3Chart.current.removeChild(d3Chart.current.children[0])
+      } catch (error) {}
+    }
 
   },[data]);
 

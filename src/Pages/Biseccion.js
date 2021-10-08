@@ -45,11 +45,11 @@ const Biseccion = () => {
         count += 1
         middlePoint = (pointA + pointB) / 2;
 
-        fa = funcion.replaceAll("x", String(pointA));
+        fa = funcion.replaceAll("x", `(${String(pointA)})`);
         fa = evaluate(fa);
-        fb = funcion.replaceAll("x", String(pointB));
+        fb = funcion.replaceAll("x", `(${String(pointB)})`);
         fb = evaluate(fb);
-        fm = funcion.replaceAll("x", String(middlePoint));
+        fm = funcion.replaceAll("x", `(${String(middlePoint)})`);
         fm = evaluate(fm);
 
         iterToPush = {
@@ -84,7 +84,7 @@ const Biseccion = () => {
   const tabular = (valor) => {
     try {
       let f;
-      f = funcion.replaceAll("x", valor);
+      f = funcion.replaceAll("x", `(${valor})`);
       f = evaluate(f);
       let newVals = valoresTabulador;
       if (newVals.find((v) => v.x === valor) === undefined && funcion !== "") {
