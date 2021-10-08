@@ -20,11 +20,13 @@ const PuntoFijo = () => {
   useEffect(() => {
     try {
       let dataToSet = [];
-      setIteraciones([{
-        i: 0,
-        x: xZero,
-        gx: evaluate(funcionG.replaceAll("x", `(${xZero})`))
-      }])
+      if (answer === 0) {
+        setIteraciones([{
+          i: 0,
+          x: xZero,
+          gx: evaluate(funcionG.replaceAll("x", `(${xZero})`))
+        }])
+      }
 
       let dominio = d3.range(puntoA, puntoB, 0.05)
       let valsFX = dominio.map(x => (
@@ -153,7 +155,7 @@ const PuntoFijo = () => {
                       color={"green"}
                       onClick={() => {
                         try {
-                          let newIters = update(iteraciones, {$push:[{
+                          const newIters = update(iteraciones, {$push:[{
                               i: iteraciones[iteraciones.length - 1]+1,
                               x: iteraciones[iteraciones.length - 1].gx,
                               gx: evaluate(funcionG.replaceAll("x", `(${iteraciones[iteraciones.length - 1].gx})`))
