@@ -59,18 +59,15 @@ const PuntoFijo = () => {
             <Form>
               <label>F(x)</label>
               <Form.Input
-                placeholder={"F(x)"}
+                placeholder={"F(x) (Rojo)"}
                 value={funcionX}
                 onChange={(e, s) => setFuncionX(s.value)}
               />
-              {/*<Label>*/}
-              {/*  Derivada de F(x): {funcionDeriv}*/}
-              {/*</Label>*/}
               <br/>
               <br/>
               <label>G(x)</label>
               <Form.Input
-                placeholder={"G(x)"}
+                placeholder={"G(x) (Azul)"}
                 value={funcionG}
                 onChange={(e, s) => setFuncionG(s.value)}
               />
