@@ -169,7 +169,7 @@ const PolinomioLagrange = () => {
                   <Form
                     onSubmit={() => {
                       try {
-                        if (!puntos.map(p => p.x).includes(px)) {
+                        if (!puntosPolinomio.map(p => p.x).includes(px)) {
                           setPuntosPolinomio(update(puntosPolinomio, {
                             $push: [
                               {
