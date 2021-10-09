@@ -3,6 +3,8 @@ import {Form, Grid, Label, Segment, Tab, Table} from "semantic-ui-react";
 import update from "immutability-helper";
 import {evaluate, simplify} from "mathjs";
 import {MathComponent} from "mathjax-react";
+import * as d3 from "d3";
+import LineChartPoliRaphson from "../Components/LineChartPoliRaphson";
 
 
 const PolinomioLagrange = () => {
@@ -16,7 +18,9 @@ const PolinomioLagrange = () => {
   const [LS, setLS] = useState([]);
   const [px, setPX] = useState([]);
   const [puntosPolinomio, setPuntosPolinomio] = useState([]);
-
+  const [data, setData] = useState([]);
+  const [puntoA, setPuntoA] = useState("");
+  const [puntoB, setPuntoB] = useState("");
 
   useEffect(() => {
 
@@ -46,7 +50,23 @@ const PolinomioLagrange = () => {
     setLS(contenedorL)
     setPolinomial(contenedorL.map(l => `(${l.formula}*${l.coeficiente})`).join("+"))
 
-  }, [puntos, funcion])
+    let dataToSet = [];
+
+    setPuntoA(Number(d3.min(puntos, p => p.x))-1)
+    setPuntoB(Number(d3.max(puntos, p => p.x))+1)
+
+    let dominio = d3.range(puntoA, puntoB, 0.1)
+    let valsFX = dominio.map(x => (
+      {funcion: "fx", x: Number(x), y: evaluate(funcion.replaceAll("x", `(${x})`))}
+    ))
+    let valsPX = dominio.map(x => (
+      {funcion: "px", x: Number(x), y: evaluate(polinomial.replaceAll("x", `(${x})`))}
+    ))
+
+    dataToSet = dataToSet.concat(valsFX).concat(valsPX)
+    setData(dataToSet)
+
+  }, [puntos, funcion, polinomial])
 
   return (
     <Grid rows={"2"} columns={"2"} divided>
@@ -122,6 +142,13 @@ const PolinomioLagrange = () => {
 
               </Table.Body>
             </Table>
+          </Segment>
+          <Segment>
+            <LineChartPoliRaphson
+              data={data}
+              a={puntoA}
+              b={puntoB}
+            />
           </Segment>
         </Grid.Column>
         <Grid.Column>
