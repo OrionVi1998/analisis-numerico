@@ -156,7 +156,7 @@ const PuntoFijo = () => {
                       onClick={() => {
                         try {
                           const newIters = update(iteraciones, {$push:[{
-                              i: iteraciones[iteraciones.length - 1]+1,
+                              i: iteraciones[iteraciones.length - 1].i+1,
                               x: iteraciones[iteraciones.length - 1].gx,
                               gx: evaluate(funcionG.replaceAll("x", `(${iteraciones[iteraciones.length - 1].gx})`))
                             }]});
