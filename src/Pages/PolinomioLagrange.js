@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Form, Grid, Label, Segment, Table} from "semantic-ui-react";
+import {Form, Grid, Label, Segment, Tab, Table} from "semantic-ui-react";
 import update from "immutability-helper";
 import {evaluate, simplify} from "mathjs";
+import {MathComponent} from "mathjax-react";
+
 
 const PolinomioLagrange = () => {
 
   const [funcion, setFuncion] = useState("1/x");
   const [puntos, setPuntos] = useState([
-    {x: 1, fx: 1},{x: -1, fx: -1},{x: 2, fx: 0.5}
+    {x: 1, fx: 1}, {x: -1, fx: -1}, {x: 2, fx: 0.5}
   ]);
   const [x, setX] = useState("");
-  const [poli, setPoli] = useState("");
+  const [polinomial, setPolinomial] = useState("");
   const [LS, setLS] = useState([]);
 
 
@@ -36,30 +38,12 @@ const PolinomioLagrange = () => {
         formula: `(${simplify(stringTop).toString()}/${evaluate(stringBottom)})`,
         coeficiente: `(${p.fx})`
       })
-
-      // console.log({
-      //   id: `L${i}`,
-      //   formula: `(${simplify(stringTop).toString()}/${evaluate(stringBottom)})`,
-      //   coeficiente: `(${p.fx})`
-      // })
-      // console.log(simplify(stringTop).toString())
-      // console.log(evaluate(stringBottom))
-      // console.log(`(${simplify(stringTop).toString()}/${evaluate(stringBottom)})`)
-      // console.log(evaluate(
-      //   `(${simplify(stringTop).toString()}/${evaluate(stringBottom)})`.replaceAll("x",2)
-      // ))
-      // console.log(simplify("").toString())
-      // console.log(evaluate(stringL.replaceAll("x",2)))
     }
 
-    console.log(contenedorL)
     setLS(contenedorL)
-    let pol = "";
-    contenedorL.map(l => `(${l.formula}*${l.coeficiente})`).join("+")
-    setPoli(pol)
-    console.log(contenedorL.map(l => `(${l.formula}*${l.coeficiente})`).join("+"))
+    setPolinomial(contenedorL.map(l => `(${l.formula}*${l.coeficiente})`).join("+"))
 
-  }, [puntos])
+  }, [puntos, funcion])
 
   return (
     <Grid rows={"2"} columns={"2"} divided>
@@ -140,11 +124,33 @@ const PolinomioLagrange = () => {
         </Grid.Column>
         <Grid.Column>
           <Segment>
+              <MathComponent tex={`P(x) = `+polinomial}/>
           </Segment>
+          <Table textAlign={"center"} celled>
+            <Table.Header>
+              <Table.HeaderCell>Ln</Table.HeaderCell>
+              <Table.HeaderCell>Formula</Table.HeaderCell>
+              <Table.HeaderCell>Coeficiente</Table.HeaderCell>
+            </Table.Header>
+
+            <Table.Body>
+              {LS.map(l =>
+                <Table.Row>
+                  <Table.Cell>{l.id}</Table.Cell>
+                  <Table.Cell>
+                    <MathComponent tex={l.formula}/>
+                  </Table.Cell>
+                  <Table.Cell>
+                    {l.coeficiente}
+                  </Table.Cell>
+                </Table.Row>
+              )}
+            </Table.Body>
+          </Table>
         </Grid.Column>
       </Grid.Row>
     </Grid>
-  );
+);
 };
 
 export default PolinomioLagrange;
