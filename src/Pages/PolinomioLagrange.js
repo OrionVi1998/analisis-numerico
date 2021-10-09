@@ -14,11 +14,14 @@ const PolinomioLagrange = () => {
   const [x, setX] = useState("");
   const [polinomial, setPolinomial] = useState("");
   const [LS, setLS] = useState([]);
+  const [px, setPX] = useState([]);
+  const [puntosPolinomio, setPuntosPolinomio] = useState([]);
 
 
   useEffect(() => {
 
     let contenedorL = [];
+    setPuntosPolinomio([])
 
     for (let i = 0; i < puntos.length; i++) {
       let p = puntos[i];
@@ -84,7 +87,6 @@ const PolinomioLagrange = () => {
                     <Form
                       onSubmit={() => {
                         try {
-                          console.log(x)
                           if (!puntos.map(p => p.x).includes(x)) {
                             setPuntos(update(puntos, {
                               $push: [
@@ -145,6 +147,61 @@ const PolinomioLagrange = () => {
                   </Table.Cell>
                 </Table.Row>
               )}
+            </Table.Body>
+          </Table>
+
+          <Table celled textAlign={"center"}>
+            <Table.Header>
+              <Table.HeaderCell>x</Table.HeaderCell>
+              <Table.HeaderCell>P(x)</Table.HeaderCell>
+            </Table.Header>
+            <Table.Body>
+
+              {puntosPolinomio.map(p =>
+                <Table.Row>
+                  <Table.Cell>{p.x}</Table.Cell>
+                  <Table.Cell>{p.px}</Table.Cell>
+                </Table.Row>
+              )}
+
+              <Table.Row>
+                <Table.Cell colSpan={"2"}>
+                  <Form
+                    onSubmit={() => {
+                      try {
+                        if (!puntos.map(p => p.x).includes(px)) {
+                          setPuntosPolinomio(update(puntosPolinomio, {
+                            $push: [
+                              {
+                                x: px,
+                                px: evaluate(polinomial.replaceAll("x", `(${px})`))
+                              }
+                            ]
+                          }))
+                        }
+                        setPX("")
+                      } catch (error) {
+                        console.log(error)
+                      }
+                    }}
+                  >
+                    <Form.Group>
+                      <Form.Input
+                        name={"px"}
+                        placeholder={"x"}
+                        value={px}
+                        onChange={(e, s) => setPX(s.value)}
+                      />
+                      <Form.Button
+                        icon={"plus"}
+                        color={"green"}
+                        type={"submit"}
+                      />
+                    </Form.Group>
+                  </Form>
+                </Table.Cell>
+              </Table.Row>
+
             </Table.Body>
           </Table>
         </Grid.Column>
