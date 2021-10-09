@@ -8,7 +8,8 @@ function Navbar(props) {
     {name: "Ejercicios: 13, 14, 15", link: "/ejercicios_a"},
     {name:"Biseccion", link:"/biseccion"},
     {name:"Punto Fijo", link: "/punto_fijo"},
-    {name:"Newton Raphson", link: "/newton_raphson"}
+    {name:"Newton Raphson", link: "/newton_raphson"},
+    {name:"Polinomio de Lagrange", link: "polinomio_lagrange"}
   ]
 
   return (

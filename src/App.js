@@ -7,6 +7,7 @@ import EjerciciosA from "./Pages/EjerciciosA";
 import Biseccion from "./Pages/Biseccion";
 import PuntoFijo from "./Pages/PuntoFijo";
 import NewtonRaphson from "./Pages/NewtonRaphson";
+import PolinomioLagrange from "./Pages/PolinomioLagrange";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path={"/biseccion"} component={Biseccion}/>
           <Route exact path={"/punto_fijo"} component={PuntoFijo}/>
           <Route exact path={"/newton_raphson"} component={NewtonRaphson}/>
+          <Route exact path={"/polinomio_lagrange"} component={PolinomioLagrange}/>
         </div>
       </Switch>
     </BrowserRouter>
