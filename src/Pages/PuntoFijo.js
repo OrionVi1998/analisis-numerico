@@ -4,6 +4,7 @@ import LineChartPF from "../Components/LineChartPF";
 import {evaluate} from "mathjs";
 import * as d3 from "d3";
 import update from "immutability-helper";
+import useWindowSize from "../Components/useWindowSize";
 
 
 const PuntoFijo = () => {
@@ -16,6 +17,7 @@ const PuntoFijo = () => {
   const [answer, setAnswer] = useState(0);
   const [xZero, setXZero] = useState(puntoB);
   const [iteraciones, setIteraciones] = useState([]);
+  const [width, height] = useWindowSize();
 
   useEffect(() => {
     try {
@@ -116,7 +118,7 @@ const PuntoFijo = () => {
         </Grid.Column>
         <Grid.Column>
           <Segment>
-            <LineChartPF data={data} rango={{xa: puntoA, xb: puntoB}}/>
+            <LineChartPF  reload={{width, height}} data={data} rango={{xa: puntoA, xb: puntoB}}/>
           </Segment>
         </Grid.Column>
 

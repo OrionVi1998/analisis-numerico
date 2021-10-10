@@ -5,6 +5,7 @@ import {evaluate, simplify} from "mathjs";
 import {MathComponent} from "mathjax-react";
 import * as d3 from "d3";
 import LineChartPoliRaphson from "../Components/LineChartPoliRaphson";
+import useWindowSize from "../Components/useWindowSize";
 
 
 const PolinomioLagrange = () => {
@@ -21,6 +22,7 @@ const PolinomioLagrange = () => {
   const [data, setData] = useState([]);
   const [puntoA, setPuntoA] = useState("");
   const [puntoB, setPuntoB] = useState("");
+  const [width, height] = useWindowSize();
 
   useEffect(() => {
 
@@ -143,17 +145,19 @@ const PolinomioLagrange = () => {
               </Table.Body>
             </Table>
           </Segment>
-          <Segment>
-            <LineChartPoliRaphson
-              data={data}
-              a={puntoA}
-              b={puntoB}
-            />
-          </Segment>
+
         </Grid.Column>
         <Grid.Column>
           <Segment>
               <MathComponent tex={`P(x) = `+polinomial}/>
+          </Segment>
+          <Segment>
+            <LineChartPoliRaphson
+              reload={{width, height}}
+              data={data}
+              a={puntoA}
+              b={puntoB}
+            />
           </Segment>
           <Table textAlign={"center"} celled>
             <Table.Header>
@@ -228,7 +232,6 @@ const PolinomioLagrange = () => {
                   </Form>
                 </Table.Cell>
               </Table.Row>
-
             </Table.Body>
           </Table>
         </Grid.Column>

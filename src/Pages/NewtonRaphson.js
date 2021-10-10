@@ -4,6 +4,7 @@ import {derivative, evaluate, pi} from "mathjs";
 import LineChartNR from "../Components/LineChartNR";
 import update from "immutability-helper";
 import * as d3 from "d3";
+import useWindowSize from "../Components/useWindowSize";
 
 const NewtonRaphson = () => {
 
@@ -16,6 +17,7 @@ const NewtonRaphson = () => {
   const [data, setData] = useState([]);
   const [xZero, setXZero] = useState(puntoB);
   const [iteraciones, setIteraciones] = useState([]);
+  const [width, height] = useWindowSize();
 
 
   useEffect(() => {
@@ -128,7 +130,7 @@ const NewtonRaphson = () => {
           </Segment>
         </Grid.Column>
         <Grid.Column>
-          <LineChartNR data={data}/>
+          <LineChartNR reload={{width, height}} data={data}/>
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
