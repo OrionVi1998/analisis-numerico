@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
-import {Form, Grid, Label, Segment, Tab, Table} from "semantic-ui-react";
+import {Form, Grid, Label, Segment, Table} from "semantic-ui-react";
 import update from "immutability-helper";
 import {evaluate, simplify} from "mathjs";
 import {MathComponent} from "mathjax-react";
@@ -12,9 +13,9 @@ const PolinomioLagrange = () => {
 
   const [funcion, setFuncion] = useState("1/x");
   const [puntos, setPuntos] = useState([
-    {x: 1, fx: 1}, {x: -1, fx: -1}, {x: 2, fx: 0.5}
+    {x: "1", fx: "1"}, {x: "-1", fx: "-1"}, {x: "2", fx: "0.5"}
   ]);
-  const [x, setX] = useState("");
+  const [puntoX, setPuntoX] = useState("");
   const [polinomial, setPolinomial] = useState("");
   const [LS, setLS] = useState([]);
   const [px, setPX] = useState([]);
@@ -76,7 +77,9 @@ const PolinomioLagrange = () => {
         <Grid.Column>
           <Segment>
             <Form>
-              <Label>
+              <Label
+                color="green"
+              >
                 F(x)
               </Label>
               <Form.Input
@@ -109,17 +112,17 @@ const PolinomioLagrange = () => {
                     <Form
                       onSubmit={() => {
                         try {
-                          if (!puntos.map(p => p.x).includes(x)) {
+                          if (!puntos.map(p => p.x).includes(puntoX)) {
                             setPuntos(update(puntos, {
                               $push: [
                                 {
-                                  x: x,
-                                  fx: evaluate(funcion.replaceAll("x", `(${x})`))
+                                  x: puntoX,
+                                  fx: evaluate(funcion.replaceAll("x", `(${puntoX})`))
                                 }
                               ]
                             }))
                           }
-                          setX("")
+                          setPuntoX("")
                         } catch (error) {
                           console.log(error)
                         }
@@ -129,8 +132,8 @@ const PolinomioLagrange = () => {
                         <Form.Input
                           name={"x"}
                           placeholder={"x"}
-                          value={x}
-                          onChange={(e, s) => setX(s.value)}
+                          value={puntoX}
+                          onChange={(e, s) => setPuntoX(s.value)}
                         />
                         <Form.Button
                           icon={"plus"}

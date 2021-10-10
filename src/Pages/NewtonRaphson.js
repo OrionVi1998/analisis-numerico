@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import {Button, Dropdown, Form, Grid, Label, Segment, Table} from "semantic-ui-react";
 import {derivative, evaluate, pi} from "mathjs";
@@ -130,7 +131,9 @@ const NewtonRaphson = () => {
           </Segment>
         </Grid.Column>
         <Grid.Column>
-          <LineChartNR reload={{width, height}} data={data}/>
+          <Segment>
+            <LineChartNR reload={{width, height}} data={data}/>
+          </Segment>
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import * as d3 from "d3";
 import {scaleLinear} from "d3";
 
@@ -9,8 +9,6 @@ const LineChartPF = ({data, a, b, reload}) => {
 
 
   useEffect(() => {
-
-    console.log('width', containerRef.current ? containerRef.current.offsetWidth : 0)
 
     const margin = {top:50, bottom:30, right:30, left:30}
     const width = (containerRef.current ? containerRef.current.offsetWidth : 500) - 65
