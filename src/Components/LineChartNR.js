@@ -2,15 +2,16 @@ import React, {useEffect, useRef} from 'react';
 import * as d3 from "d3";
 import {scaleLinear} from "d3";
 
-const LineChartNR = ({data}) => {
+const LineChartNR = ({data, reload}) => {
 
-  const d3Chart = useRef()
+  const d3Chart = useRef();
+  const containerRef = useRef();
 
   useEffect(() => {
 
-    const margin = {top:50, bottom:30, right:30, left:30}
-    const width = 500
-    const height = 500
+    const margin = {top:50, bottom:30, right:30, left:30};
+    const width = (containerRef.current ? containerRef.current.offsetWidth : 500) - 75;
+    const height = 500;
 
     const svg = d3.select(d3Chart.current)
     .attr("width", width+margin.left+margin.right)
@@ -75,10 +76,10 @@ const LineChartNR = ({data}) => {
       }
     }
 
-  },[data]);
+  },[data, reload]);
 
   return (
-    <div id={"d3LineChartNR"}>
+    <div ref={containerRef} id={"d3LineChartNR"}>
       <svg ref={d3Chart}/>
     </div>
   );

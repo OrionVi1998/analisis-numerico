@@ -1,4 +1,3 @@
-import './App.css';
 import 'semantic-ui-css/semantic.min.css'
 import {Route, BrowserRouter, Switch} from "react-router-dom";
 import HomePage from "./Pages/HomePage";
@@ -8,6 +7,7 @@ import Biseccion from "./Pages/Biseccion";
 import PuntoFijo from "./Pages/PuntoFijo";
 import NewtonRaphson from "./Pages/NewtonRaphson";
 import PolinomioLagrange from "./Pages/PolinomioLagrange";
+import MetodosTrapecios from "./Pages/MetodosTrapecios";
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
           <Route exact path={"/punto_fijo"} component={PuntoFijo}/>
           <Route exact path={"/newton_raphson"} component={NewtonRaphson}/>
           <Route exact path={"/polinomio_lagrange"} component={PolinomioLagrange}/>
+          <Route exact path={"/metodo_trapecios"} component={MetodosTrapecios}/>
         </div>
       </Switch>
     </BrowserRouter>

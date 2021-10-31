@@ -1,19 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
-import {Form, Grid, Label, Segment, Tab, Table} from "semantic-ui-react";
+import {Form, Grid, Label, Segment, Table} from "semantic-ui-react";
 import update from "immutability-helper";
 import {evaluate, simplify} from "mathjs";
 import {MathComponent} from "mathjax-react";
 import * as d3 from "d3";
 import LineChartPoliRaphson from "../Components/LineChartPoliRaphson";
+import useWindowSize from "../Components/useWindowSize";
 
 
 const PolinomioLagrange = () => {
 
   const [funcion, setFuncion] = useState("1/x");
   const [puntos, setPuntos] = useState([
-    {x: 1, fx: 1}, {x: -1, fx: -1}, {x: 2, fx: 0.5}
+    {x: "1", fx: "1"}, {x: "-1", fx: "-1"}, {x: "2", fx: "0.5"}
   ]);
-  const [x, setX] = useState("");
+  const [puntoX, setPuntoX] = useState("");
   const [polinomial, setPolinomial] = useState("");
   const [LS, setLS] = useState([]);
   const [px, setPX] = useState([]);
@@ -21,6 +23,7 @@ const PolinomioLagrange = () => {
   const [data, setData] = useState([]);
   const [puntoA, setPuntoA] = useState("");
   const [puntoB, setPuntoB] = useState("");
+  const [width, height] = useWindowSize();
 
   useEffect(() => {
 
@@ -74,7 +77,9 @@ const PolinomioLagrange = () => {
         <Grid.Column>
           <Segment>
             <Form>
-              <Label>
+              <Label
+                color="green"
+              >
                 F(x)
               </Label>
               <Form.Input
@@ -107,17 +112,17 @@ const PolinomioLagrange = () => {
                     <Form
                       onSubmit={() => {
                         try {
-                          if (!puntos.map(p => p.x).includes(x)) {
+                          if (!puntos.map(p => p.x).includes(puntoX)) {
                             setPuntos(update(puntos, {
                               $push: [
                                 {
-                                  x: x,
-                                  fx: evaluate(funcion.replaceAll("x", `(${x})`))
+                                  x: puntoX,
+                                  fx: evaluate(funcion.replaceAll("x", `(${puntoX})`))
                                 }
                               ]
                             }))
                           }
-                          setX("")
+                          setPuntoX("")
                         } catch (error) {
                           console.log(error)
                         }
@@ -127,8 +132,8 @@ const PolinomioLagrange = () => {
                         <Form.Input
                           name={"x"}
                           placeholder={"x"}
-                          value={x}
-                          onChange={(e, s) => setX(s.value)}
+                          value={puntoX}
+                          onChange={(e, s) => setPuntoX(s.value)}
                         />
                         <Form.Button
                           icon={"plus"}
@@ -143,17 +148,19 @@ const PolinomioLagrange = () => {
               </Table.Body>
             </Table>
           </Segment>
-          <Segment>
-            <LineChartPoliRaphson
-              data={data}
-              a={puntoA}
-              b={puntoB}
-            />
-          </Segment>
+
         </Grid.Column>
         <Grid.Column>
           <Segment>
               <MathComponent tex={`P(x) = `+polinomial}/>
+          </Segment>
+          <Segment>
+            <LineChartPoliRaphson
+              reload={{width, height}}
+              data={data}
+              a={puntoA}
+              b={puntoB}
+            />
           </Segment>
           <Table textAlign={"center"} celled>
             <Table.Header>
@@ -228,7 +235,6 @@ const PolinomioLagrange = () => {
                   </Form>
                 </Table.Cell>
               </Table.Row>
-
             </Table.Body>
           </Table>
         </Grid.Column>
