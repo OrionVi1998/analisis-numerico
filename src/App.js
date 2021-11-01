@@ -8,6 +8,7 @@ import PuntoFijo from "./Pages/PuntoFijo";
 import NewtonRaphson from "./Pages/NewtonRaphson";
 import PolinomioLagrange from "./Pages/PolinomioLagrange";
 import MetodosTrapecios from "./Pages/MetodosTrapecios";
+import MetodoRomberg from "./Pages/MetodosRomberg";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
           <Route exact path={"/newton_raphson"} component={NewtonRaphson}/>
           <Route exact path={"/polinomio_lagrange"} component={PolinomioLagrange}/>
           <Route exact path={"/metodo_trapecios"} component={MetodosTrapecios}/>
+          <Route exact path={"/metodo_romberg"} component={MetodoRomberg}/>
+
         </div>
       </Switch>
     </BrowserRouter>
