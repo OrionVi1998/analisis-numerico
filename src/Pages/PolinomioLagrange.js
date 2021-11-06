@@ -54,9 +54,8 @@ const PolinomioLagrange = () => {
     setPolinomial(contenedorL.map(l => `(${l.formula}*${l.coeficiente})`).join("+"))
 
     let dataToSet = [];
-
-    setPuntoA(Number(d3.min(puntos, p => p.x))-1)
-    setPuntoB(Number(d3.max(puntos, p => p.x))+1)
+    setPuntoA(Number(d3.min(puntos, p => Number(p.x)))-1)
+    setPuntoB(Number(d3.max(puntos, p => Number(p.x)))+1)
 
     let dominio = d3.range(puntoA, puntoB, 0.1)
     let valsFX = dominio.map(x => (

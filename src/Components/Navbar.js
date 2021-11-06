@@ -10,7 +10,8 @@ function Navbar(props) {
     {name:"Punto Fijo", link: "/punto_fijo"},
     {name:"Newton Raphson", link: "/newton_raphson"},
     {name:"Polinomio de Lagrange", link: "/polinomio_lagrange"},
-    {name:"Metodos de Los Trapecios", link: "/metodo_trapecios"}
+    {name:"Metodos de Los Trapecios", link: "/metodo_trapecios"},
+    {name:"Metodo de Romberg", link: "/metodo_romberg"}
   ]
 
   return (
