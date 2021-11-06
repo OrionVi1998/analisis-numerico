@@ -26,48 +26,58 @@ const PolinomioLagrange = () => {
   const [width, height] = useWindowSize();
 
   useEffect(() => {
+    try {
+      let contenedorL = [];
+      setPuntosPolinomio([])
 
-    let contenedorL = [];
-    setPuntosPolinomio([])
+      for (let i = 0; i < puntos.length; i++) {
+        let p = puntos[i];
+        let stringTop = "";
+        let stringBottom = "";
 
-    for (let i = 0; i < puntos.length; i++) {
-      let p = puntos[i];
-      let stringTop = "";
-      let stringBottom = "";
-
-      for (let j = 0; j < puntos.length; j++) {
-        if (j !== i) {
-          let p2 = puntos[j]
-          stringTop += `((x)-(${p2.x}))`
-          stringBottom += `((${p.x})-(${p2.x}))`
+        for (let j = 0; j < puntos.length; j++) {
+          if (j !== i) {
+            let p2 = puntos[j]
+            stringTop += `((x)-(${p2.x}))`
+            stringBottom += `((${p.x})-(${p2.x}))`
+          }
         }
+
+        contenedorL.push({
+          id: `L${i}`,
+          formula: `((${simplify(stringTop).toString()})/(${evaluate(stringBottom)}))`,
+          coeficiente: `(${p.fx})`
+        })
       }
 
-      contenedorL.push({
-        id: `L${i}`,
-        formula: `(${simplify(stringTop).toString()}/${evaluate(stringBottom)})`,
-        coeficiente: `(${p.fx})`
-      })
+      setLS(contenedorL)
+      setPolinomial(contenedorL.map(l => `(${l.formula}*${l.coeficiente})`).join("+"))
+
+      let dataToSet = [];
+      setPuntoA(Number(d3.min(puntos, p => Number(p.x))) - 1)
+      setPuntoB(Number(d3.max(puntos, p => Number(p.x))) + 1)
+
+      let dominio;
+
+      if (puntos.length > 1) {
+        dominio = d3.range(puntoA, puntoB, 0.1);
+      } else {
+        dominio = d3.range(-2, 2, 0.1);
+      }
+
+      let valsFX = dominio.map(x => (
+        {funcion: "fx", x: Number(x), y: evaluate(funcion.replaceAll("x", `(${x})`))}
+      ))
+      let valsPX = dominio.map(x => (
+        {funcion: "px", x: Number(x), y: evaluate(polinomial.replaceAll("x", `(${x})`))}
+      ))
+
+      dataToSet = dataToSet.concat(valsFX).concat(valsPX)
+      setData(dataToSet)
+
+    } catch (e) {
+      console.log(e)
     }
-
-    setLS(contenedorL)
-    setPolinomial(contenedorL.map(l => `(${l.formula}*${l.coeficiente})`).join("+"))
-
-    let dataToSet = [];
-    setPuntoA(Number(d3.min(puntos, p => Number(p.x)))-1)
-    setPuntoB(Number(d3.max(puntos, p => Number(p.x)))+1)
-
-    let dominio = d3.range(puntoA, puntoB, 0.1)
-    let valsFX = dominio.map(x => (
-      {funcion: "fx", x: Number(x), y: evaluate(funcion.replaceAll("x", `(${x})`))}
-    ))
-    let valsPX = dominio.map(x => (
-      {funcion: "px", x: Number(x), y: evaluate(polinomial.replaceAll("x", `(${x})`))}
-    ))
-
-    dataToSet = dataToSet.concat(valsFX).concat(valsPX)
-    setData(dataToSet)
-
   }, [puntos, funcion, polinomial])
 
   return (
@@ -151,7 +161,7 @@ const PolinomioLagrange = () => {
         </Grid.Column>
         <Grid.Column>
           <Segment>
-              <MathComponent tex={`P(x) = `+polinomial}/>
+            <MathComponent tex={`P(x) = ` + polinomial}/>
           </Segment>
           <Segment>
             <LineChartPoliRaphson
@@ -239,7 +249,7 @@ const PolinomioLagrange = () => {
         </Grid.Column>
       </Grid.Row>
     </Grid>
-);
+  );
 };
 
 export default PolinomioLagrange;
