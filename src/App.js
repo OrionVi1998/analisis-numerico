@@ -1,5 +1,5 @@
 import 'semantic-ui-css/semantic.min.css'
-import {Route, BrowserRouter, Switch} from "react-router-dom";
+import {Route, BrowserRouter, Switch, HashRouter} from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import Navbar from "./Components/Navbar";
 import EjerciciosA from "./Pages/EjerciciosA";
@@ -10,24 +10,26 @@ import PolinomioLagrange from "./Pages/PolinomioLagrange";
 import MetodosTrapecios from "./Pages/MetodosTrapecios";
 import MetodoRomberg from "./Pages/MetodosRomberg";
 
+const url = `https://orionvi1998.github.io/analisis-numerico/`;
+//const url = "http://localhost:3000/"
+
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <div>
           <Navbar/>
-          <Route exact path={"/"} component={HomePage}/>
-          <Route exact path={"/ejercicios_a"} component={EjerciciosA}/>
-          <Route exact path={"/biseccion"} component={Biseccion}/>
-          <Route exact path={"/punto_fijo"} component={PuntoFijo}/>
-          <Route exact path={"/newton_raphson"} component={NewtonRaphson}/>
-          <Route exact path={"/polinomio_lagrange"} component={PolinomioLagrange}/>
-          <Route exact path={"/metodo_trapecios"} component={MetodosTrapecios}/>
-          <Route exact path={"/metodo_romberg"} component={MetodoRomberg}/>
-
+          <Route  path={`/`} component={HomePage}/>
+          <Route  path={`/ejercicios_a`} component={EjerciciosA}/>
+          <Route  path={`/biseccion`} component={Biseccion}/>
+          <Route  path={`/punto_fijo`} component={PuntoFijo}/>
+          <Route  path={`/newton_raphson`} component={NewtonRaphson}/>
+          <Route  path={`/polinomio_lagrange`} component={PolinomioLagrange}/>
+          <Route  path={`/metodo_trapecios`} component={MetodosTrapecios}/>
+          <Route  path={`/metodo_romberg`} component={MetodoRomberg}/>
         </div>
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
