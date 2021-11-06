@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Dropdown, Grid, Header, Input, Label, Loader, Segment, Table} from "semantic-ui-react";
-import {MathComponent} from "mathjax-react";
+import {Grid, Input, Segment, Table} from "semantic-ui-react";
 import {evaluate} from "mathjs";
 import * as d3 from "d3";
 
 const range = (start, end, length = end - start + 1) =>
-  Array.from({ length }, (_, i) => start + i)
+  Array.from({length}, (_, i) => start + i)
 
 function MetodoRomberg(props) {
 
@@ -23,18 +22,16 @@ function MetodoRomberg(props) {
 
   useEffect(() => {
     setPuntos(Romberg(maxDepth, minPoint, maxPoint, equacion))
-  } , [])
-
+  }, [])
 
 
   useEffect(() => {
     try {
       setPuntos(Romberg(maxDepth, minPoint, maxPoint, equacion))
-    }
-    catch (e) {
+    } catch (e) {
       console.error(e)
     }
-  } , [equacion, maxPoint, minPoint])
+  }, [equacion, maxDepth, maxPoint, minPoint])
 
   return (
     <div>
@@ -55,7 +52,7 @@ function MetodoRomberg(props) {
                 label={`Profundidad: ${maxDepth}`}
                 placeholder={'max prfundidad'}
                 value={maxDepth}
-                onChange={(e, {value}) => setMaxDepth(Number(value*2))}
+                onChange={(e, {value}) => setMaxDepth(Number(value * 2))}
               />
               <Input
                 label={'Minimo'}
@@ -71,15 +68,15 @@ function MetodoRomberg(props) {
               />
               <Table celled>
                 <Table.Header>
-                  {range(0,maxDepth-1).map(n =>
+                  {range(0, maxDepth - 1).map(n =>
                     <Table.HeaderCell>
-                      n({Math.pow(2,n)})
+                      n({Math.pow(2, n)})
                     </Table.HeaderCell>
                   )}
                 </Table.Header>
 
                 <Table.Body>
-                  {range(0,maxDepth-1).map(n =>
+                  {range(0, maxDepth - 1).map(n =>
                     <Table.Row>
                       {puntos[n].map(p => <Table.Cell>{p}</Table.Cell>)}
                     </Table.Row>
@@ -91,13 +88,10 @@ function MetodoRomberg(props) {
         </Grid.Row>
 
 
-
-
       </Grid>
     </div>
   );
 }
-
 
 
 function Trapecio(minPoint, maxPoint, n, ecuacion) {
@@ -106,7 +100,6 @@ function Trapecio(minPoint, maxPoint, n, ecuacion) {
 
   let newPuntos = [];
   let lastX = minPoint;
-
 
 
   newPuntos.push({
@@ -129,6 +122,7 @@ function Trapecio(minPoint, maxPoint, n, ecuacion) {
   function getMax() {
     return {x: d3.max(newPuntos, p => p.x), y: d3.max(newPuntos, p => p.y)}
   }
+
   if (newPuntos.length === 2) {
     return evaluate(`(${h}/2)*(${getMin().y} +  ${getMax().y})`)
   } else {
@@ -152,13 +146,14 @@ function Romberg(profundidad, minPoint, maxPoint, eq) {
 
   console.log(resArray)
 
-  for (let i = resArray.length-2; i !== -1; i--) {
+  for (let i = resArray.length - 2; i !== -1; i--) {
     console.log(resArray[i])
 
     resArray[i] = resArray[i].map(n => {
-      console.log(`${resArray[i+1][n]}, ${resArray[i + 1][n+1]}` )
-      let k = profundidad-i;
-      return eval(`(((4^(${k}-1)) * (${resArray[i + 1][n+1]})) - (${resArray[i+1][n]}))/((4^(${k}-1))-1)`)
+      console.log(`${resArray[i + 1][n]}, ${resArray[i + 1][n + 1]}`)
+      let k = profundidad - i;
+      // eslint-disable-next-line no-eval
+      return eval(`(((4 ^ (${k} - 1)) * (${resArray[i + 1][n + 1]})) - (${resArray[i + 1][n]})) / ((4 ^ (${k} - 1)) - 1)`)
     })
 
     console.log(resArray[i])
@@ -170,7 +165,6 @@ function Romberg(profundidad, minPoint, maxPoint, eq) {
   return resArray.reverse()
 
 }
-
 
 
 export default MetodoRomberg;
