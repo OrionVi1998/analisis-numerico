@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/analisis-numerico/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/analisis-numerico/static/js/main.a452b22f.chunk.js",
-    "main.js.map": "/analisis-numerico/static/js/main.a452b22f.chunk.js.map",
-    "runtime-main.js": "/analisis-numerico/static/js/runtime-main.5cde64f9.js",
-    "runtime-main.js.map": "/analisis-numerico/static/js/runtime-main.5cde64f9.js.map",
+    "main.js": "/analisis-numerico/static/js/main.c66fc615.chunk.js",
+    "main.js.map": "/analisis-numerico/static/js/main.c66fc615.chunk.js.map",
+    "runtime-main.js": "/analisis-numerico/static/js/runtime-main.705b5430.js",
+    "runtime-main.js.map": "/analisis-numerico/static/js/runtime-main.705b5430.js.map",
     "static/css/2.eb4e6896.chunk.css": "/analisis-numerico/static/css/2.eb4e6896.chunk.css",
-    "static/js/2.f264731f.chunk.js": "/analisis-numerico/static/js/2.f264731f.chunk.js",
-    "static/js/2.f264731f.chunk.js.map": "/analisis-numerico/static/js/2.f264731f.chunk.js.map",
-    "static/js/3.78ca773b.chunk.js": "/analisis-numerico/static/js/3.78ca773b.chunk.js",
-    "static/js/3.78ca773b.chunk.js.map": "/analisis-numerico/static/js/3.78ca773b.chunk.js.map",
+    "static/js/2.fdf18cd1.chunk.js": "/analisis-numerico/static/js/2.fdf18cd1.chunk.js",
+    "static/js/2.fdf18cd1.chunk.js.map": "/analisis-numerico/static/js/2.fdf18cd1.chunk.js.map",
+    "static/js/3.503185f2.chunk.js": "/analisis-numerico/static/js/3.503185f2.chunk.js",
+    "static/js/3.503185f2.chunk.js.map": "/analisis-numerico/static/js/3.503185f2.chunk.js.map",
     "index.html": "/analisis-numerico/index.html",
     "static/css/2.eb4e6896.chunk.css.map": "/analisis-numerico/static/css/2.eb4e6896.chunk.css.map",
     "static/css/main.6dea0f05.chunk.css.map": "/analisis-numerico/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.f264731f.chunk.js.LICENSE.txt": "/analisis-numerico/static/js/2.f264731f.chunk.js.LICENSE.txt",
+    "static/js/2.fdf18cd1.chunk.js.LICENSE.txt": "/analisis-numerico/static/js/2.fdf18cd1.chunk.js.LICENSE.txt",
     "static/media/semantic.min.css": "/analisis-numerico/static/media/outline-icons.ddae9b1b.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.5cde64f9.js",
+    "static/js/runtime-main.705b5430.js",
     "static/css/2.eb4e6896.chunk.css",
-    "static/js/2.f264731f.chunk.js",
+    "static/js/2.fdf18cd1.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.a452b22f.chunk.js"
+    "static/js/main.c66fc615.chunk.js"
   ]
 }
