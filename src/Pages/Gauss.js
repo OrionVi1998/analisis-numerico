@@ -11,23 +11,23 @@ function Gauss() {
   const [nMat, setNMat] = useState(3);
   const [resMat, setResMat] = useState([]);
 
-  useEffect(() => {
-    try {
-      let newMat = [];
-      for (let i = 0; nMat > i; i++) {
-        let matAdd = [];
-        for (let j = 0; nMat > j; j++) {
-          matAdd.push('')
-        }
-        matAdd.push('')
-        newMat.push(matAdd)
-      }
-      setInitMat(newMat);
-      setResMat(newMat);
-    } catch (e) {
-      console.log(e)
-    }
-  }, [nMat]);
+  // useEffect(() => {
+  //   try {
+  //     let newMat = [];
+  //     for (let i = 0; nMat > i; i++) {
+  //       let matAdd = [];
+  //       for (let j = 0; nMat > j; j++) {
+  //         matAdd.push('')
+  //       }
+  //       matAdd.push('')
+  //       newMat.push(matAdd)
+  //     }
+  //     setInitMat(newMat);
+  //     setResMat(newMat);
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }, [nMat]);
 
 
   return (
@@ -105,7 +105,7 @@ function Gauss() {
         content={'Elminacion de Gauss'}
         onClick={() => {
           try {
-            setResMat(gauss(initMat))
+            setResMat(gaussDecendente(initMat))
           } catch (e) {
             console.log(e)
           }
@@ -116,14 +116,13 @@ function Gauss() {
   );
 }
 
-function gauss(matInit) {
+function gaussDecendente(matInit) {
   let matrizDiagonal = JSON.parse(JSON.stringify(matInit));
 
   let n = matrizDiagonal.length;
   let i, j, k = 0;
 
   for (i = 0; i < n; i++) {
-
     for (j = i; j < n; j++) {
       if (i !== j) {
         let pivote = matrizDiagonal[j][i] / matrizDiagonal[i][i];
@@ -133,7 +132,18 @@ function gauss(matInit) {
       }
     }
   }
+
+  for (let row = 0; row < n ; row++){
+    let p = matrizDiagonal[row][row];
+    if (p !== 0) {
+      for (let col = 0; col <= n ; col++){
+        matrizDiagonal[row][col] = matrizDiagonal[row][col]/ p
+      }
+    }
+  }
+
   return matrizDiagonal;
+
 }
 
 export default Gauss;
