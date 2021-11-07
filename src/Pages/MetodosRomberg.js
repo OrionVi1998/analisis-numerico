@@ -2,12 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {Grid, Input, Segment, Table} from "semantic-ui-react";
 import {evaluate} from "mathjs";
 import * as d3 from "d3";
-import update from "immutability-helper";
 
 const range = (start, end, length = end - start + 1) =>
   Array.from({length}, (_, i) => start + i)
 
-function MetodoRomberg(props) {
+function MetodoRomberg() {
 
   const [puntos, setPuntos] = useState([
     [],
@@ -135,7 +134,7 @@ function Trapecio(minPoint, maxPoint, n, ecuacion) {
 
 function Romberg(profundidad, minPoint, maxPoint, eq) {
 
-  let resArray = range(0, profundidad - 1).map(n => [])
+  let resArray = range(0, profundidad - 1).map(() => [])
 
   range(0, profundidad - 1).map(n => {
     resArray[n] = range(0, n)
