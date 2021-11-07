@@ -64,6 +64,8 @@ function Gauss() {
                         let newMat = JSON.parse(JSON.stringify(initMat));
                         newMat[i1][i2] = value;
                         setInitMat(newMat);
+                        setResMat([]);
+                        setResulatdos([]);
                       }}
                     />
                   </Table.Cell>
