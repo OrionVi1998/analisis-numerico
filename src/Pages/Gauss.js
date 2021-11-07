@@ -151,7 +151,7 @@ function gaussDecendente(matInit) {
     let p = matrizDiagonal[row][row];
     if (p !== 0) {
       for (let col = 0; col <= n ; col++){
-        matrizDiagonal[row][col] = matrizDiagonal[row][col]/ p
+        matrizDiagonal[row][col] = matrizDiagonal[row][col]/p
       }
     }
   }
@@ -171,7 +171,7 @@ function getResultadoAscendente(matInit) {
     if (row+1 === n) {
       resultados.push(matrizDiagonal[row][n])
     } else {
-      resultados.push(matrizDiagonal[row][n] - resultados.reduce((pV, cV) => pV - cV))
+      resultados.push(matrizDiagonal[row][n] - resultados.map((r, index) => r * matrizDiagonal[row][n-index-1]).reduce((pV, cV) => pV + cV))
     }
   }
   return resultados;
