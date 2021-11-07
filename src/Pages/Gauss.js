@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Header, Input, Segment, Table} from "semantic-ui-react";
+import {Button, Input, Segment, Table} from "semantic-ui-react";
 
 function Gauss() {
 
