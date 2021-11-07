@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import * as d3 from "d3";
 import {scaleLinear} from "d3";
 
-const LineChartPF = ({data, a, b, reload}) => {
+const LineChartPolinomioLagrange = ({data, a, b, reload}) => {
 
   const d3Chart = useRef()
   const containerRef = useRef();
@@ -73,4 +73,4 @@ const LineChartPF = ({data, a, b, reload}) => {
   );
 };
 
-export default LineChartPF;
+export default LineChartPolinomioLagrange;
