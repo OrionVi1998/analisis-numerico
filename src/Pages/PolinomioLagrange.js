@@ -5,7 +5,7 @@ import update from "immutability-helper";
 import {evaluate, simplify} from "mathjs";
 import {MathComponent} from "mathjax-react";
 import * as d3 from "d3";
-import LineChartPoliRaphson from "../Components/LineChartPoliRaphson";
+import LineChartPoliRaphson from "../Components/LineChartPoliLagrange";
 import useWindowSize from "../Components/useWindowSize";
 
 

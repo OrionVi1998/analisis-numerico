@@ -12,7 +12,9 @@ function Navbar(props) {
     {name: "Newton Raphson", link: "/newton_raphson"},
     {name: "Polinomio de Lagrange", link: "/polinomio_lagrange"},
     {name: "Metodos de Los Trapecios", link: "/metodo_trapecios"},
-    {name: "Metodo de Romberg", link: "/metodo_romberg"}
+    {name: "Metodo de Romberg", link: "/metodo_romberg"},
+    {name: "Metodo de Gauss", link: "/metodo_gauss"},
+
   ]
 
   return (

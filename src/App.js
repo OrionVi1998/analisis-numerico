@@ -9,6 +9,7 @@ import NewtonRaphson from "./Pages/NewtonRaphson";
 import PolinomioLagrange from "./Pages/PolinomioLagrange";
 import MetodosTrapecios from "./Pages/MetodosTrapecios";
 import MetodoRomberg from "./Pages/MetodosRomberg";
+import Gauss from "./Pages/Gauss";
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
           <Route path={`/polinomio_lagrange`} component={PolinomioLagrange}/>
           <Route path={`/metodo_trapecios`} component={MetodosTrapecios}/>
           <Route path={`/metodo_romberg`} component={MetodoRomberg}/>
+          <Route path={`/metodo_gauss`} component={Gauss}/>
+
         </div>
       </Switch>
     </HashRouter>

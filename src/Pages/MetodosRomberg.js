@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Grid, Input, Segment, Table} from "semantic-ui-react";
 import {evaluate} from "mathjs";
 import * as d3 from "d3";
+import update from "immutability-helper";
 
 const range = (start, end, length = end - start + 1) =>
   Array.from({length}, (_, i) => start + i)
@@ -27,7 +28,8 @@ function MetodoRomberg(props) {
 
   useEffect(() => {
     try {
-      setPuntos(Romberg(maxDepth, minPoint, maxPoint, equacion))
+      console.log(Romberg(maxDepth, minPoint, maxPoint, equacion))
+      setPuntos(Romberg(maxDepth, minPoint, maxPoint, equacion));
     } catch (e) {
       console.error(e)
     }
@@ -139,30 +141,30 @@ function Romberg(profundidad, minPoint, maxPoint, eq) {
     resArray[n] = range(0, n)
   })
 
-
   resArray[resArray.length - 1] = range(0, profundidad - 1).map(n => {
-    return Trapecio(minPoint, maxPoint, Math.pow(2, n), eq)
+    return Trapecio(Number(minPoint), Number(maxPoint), Math.pow(2, n), eq)
   })
 
-  console.log(resArray)
+  // console.log(resArray)
 
   for (let i = resArray.length - 2; i !== -1; i--) {
-    console.log(resArray[i])
+    // console.log(resArray[i])
 
     resArray[i] = resArray[i].map(n => {
-      console.log(`${resArray[i + 1][n]}, ${resArray[i + 1][n + 1]}`)
+      // console.log(`${resArray[i + 1][n]}, ${resArray[i + 1][n + 1]}`)
       let k = profundidad - i;
+
       // eslint-disable-next-line no-eval
       return eval(`(((4 ^ (${k} - 1)) * (${resArray[i + 1][n + 1]})) - (${resArray[i + 1][n]})) / ((4 ^ (${k} - 1)) - 1)`)
     })
 
-    console.log(resArray[i])
+    // console.log(resArray[i])
 
   }
 
-  console.log(resArray)
+  // console.log(resArray)
 
-  return resArray.reverse()
+  return resArray.reverse();
 
 }
 

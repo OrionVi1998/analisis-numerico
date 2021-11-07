@@ -1,11 +1,13 @@
 import React from 'react';
-import {Container} from "semantic-ui-react";
+import {Header, Segment} from "semantic-ui-react";
 
 function HomePage() {
   return (
-    <Container>
-      This is my homepage
-    </Container>
+    <Segment placeholder style={{textAlign: 'center'}}>
+      <Header>
+        Estos son los tps y implementaciones desarollados
+      </Header>
+    </Segment>
   );
 }
 
