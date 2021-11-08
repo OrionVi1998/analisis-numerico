@@ -36,7 +36,7 @@ function MetodoRomberg() {
 
   return (
     <div>
-      <Grid divided columns={'2'}>
+      <Grid divided columns={'3'}>
         <Grid.Row>
           <Grid.Column width={'16'}>
             <Segment fluid>
