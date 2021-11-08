@@ -10,6 +10,7 @@ function Gauss() {
   ]);
   const [nMat, setNMat] = useState(3);
   const [resMat, setResMat] = useState([]);
+  const [resulatdos,setResulatdos] = useState([]);
 
   useEffect(() => {
     try {
@@ -23,12 +24,10 @@ function Gauss() {
         newMat.push(matAdd)
       }
       setInitMat(newMat);
-      setResMat(newMat);
     } catch (e) {
       console.log(e)
     }
   }, [nMat]);
-
 
   return (
     <Segment>
@@ -62,9 +61,11 @@ function Gauss() {
                       value={initMat[i1][i2]}
                       placeholder={i2 !== nMat ? `(${i1},${i2})`: `b${i1}`}
                       onChange={(e, {value}) => {
-                        let newMat = JSON.parse(JSON.stringify(initMat))
-                        newMat[i1][i2] = value
-                        setInitMat(newMat)
+                        let newMat = JSON.parse(JSON.stringify(initMat));
+                        newMat[i1][i2] = value;
+                        setInitMat(newMat);
+                        setResMat([]);
+                        setResulatdos([]);
                       }}
                     />
                   </Table.Cell>
@@ -99,13 +100,26 @@ function Gauss() {
         </Table.Body>
       </Table>
 
+      {resulatdos ?
+        <>
+          <Table>
+            <Table.Header>
+              {resulatdos.reverse().map((val, index) => <Table.HeaderCell>{`x${resulatdos.length - index} = ${val}`}</Table.HeaderCell>)}
+            </Table.Header>
+          </Table>
+        </>
+        :
+        <></>}
+
       <Button
         fluid
         color={'green'}
         content={'Elminacion de Gauss'}
         onClick={() => {
           try {
-            setResMat(gauss(initMat))
+            let rMat = gaussDecendente(initMat)
+            setResMat(rMat);
+            setResulatdos(getResultadoAscendente(rMat));
           } catch (e) {
             console.log(e)
           }
@@ -116,14 +130,13 @@ function Gauss() {
   );
 }
 
-function gauss(matInit) {
+function gaussDecendente(matInit) {
   let matrizDiagonal = JSON.parse(JSON.stringify(matInit));
 
   let n = matrizDiagonal.length;
   let i, j, k = 0;
 
   for (i = 0; i < n; i++) {
-
     for (j = i; j < n; j++) {
       if (i !== j) {
         let pivote = matrizDiagonal[j][i] / matrizDiagonal[i][i];
@@ -133,7 +146,35 @@ function gauss(matInit) {
       }
     }
   }
+
+  for (let row = 0; row < n ; row++){
+    let p = matrizDiagonal[row][row];
+    if (p !== 0) {
+      for (let col = 0; col <= n ; col++){
+        matrizDiagonal[row][col] = matrizDiagonal[row][col]/p
+      }
+    }
+  }
+
   return matrizDiagonal;
+
+}
+
+
+function getResultadoAscendente(matInit) {
+  let matrizDiagonal = JSON.parse(JSON.stringify(matInit));
+  let n = matrizDiagonal.length;
+
+  let resultados = [];
+
+  for (let row=n-1;row>=0;row--) {
+    if (row+1 === n) {
+      resultados.push(matrizDiagonal[row][n])
+    } else {
+      resultados.push(matrizDiagonal[row][n] - resultados.map((r, index) => r * matrizDiagonal[row][n-index-1]).reduce((pV, cV) => pV + cV))
+    }
+  }
+  return resultados;
 }
 
 export default Gauss;
