@@ -34,7 +34,7 @@ function Navbar(props) {
         position={'right'}
       >
         <Icon name={'github'} />
-        Desarollad por OrionVi1998
+        Desarollado por OrionVi1998
       </Menu.Item>
     </Menu>
   );
