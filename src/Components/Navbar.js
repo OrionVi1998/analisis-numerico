@@ -1,5 +1,5 @@
 import React from 'react';
-import {Menu} from "semantic-ui-react";
+import {Icon, Menu} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 
 function Navbar(props) {
@@ -29,6 +29,13 @@ function Navbar(props) {
           </Menu.Item>
         )
       }
+      <Menu.Item
+        onClick={() => window.open('https://github.com/OrionVi1998/analisis-numerico', '_self')}
+        position={'right'}
+      >
+        <Icon name={'github'} />
+        Desarollad por OrionVi1998
+      </Menu.Item>
     </Menu>
   );
 }
